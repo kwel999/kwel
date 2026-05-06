@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>KWEL | Personal Profile</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Poppins;
+}
+
+body{
+  height:100vh;
+  overflow:hidden;
+
+  background:
+  radial-gradient(circle at top,#3a0000 0%,#170000 25%,#050505 70%,#000 100%);
+
+  background-size:400% 400%;
+
+  animation:bg 12s ease infinite;
+
+  color:white;
+
+  cursor:none;
+}
+
+@keyframes bg{
+
+  0%{
+    background-position:0% 50%;
+    filter:brightness(1);
+  }
+
+  50%{
+    background-position:100% 50%;
+    filter:brightness(.85);
+  }
+
+  100%{
+    background-position:0% 50%;
+    filter:brightness(1);
+  }
+
+}
+
+
+.blood-container{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:2;
+  overflow:hidden;
+}
+
+
+.blood-top{
+  position:absolute;
+  top:0;
+  width:100%;
+  height:90px;
+
+  background:
+  radial-gradient(circle at 5% 10%,#8b0000 0 50px,transparent 51px),
+  radial-gradient(circle at 15% 0%,#690000 0 70px,transparent 71px),
+  radial-gradient(circle at 28% 15%,#7d0000 0 60px,transparent 61px),
+  radial-gradient(circle at 40% 5%,#540000 0 80px,transparent 81px),
+  radial-gradient(circle at 55% 15%,#9b0000 0 65px,transparent 66px),
+  radial-gradient(circle at 70% 0%,#650000 0 85px,transparent 86px),
+  radial-gradient(circle at 85% 10%,#850000 0 55px,transparent 56px),
+  radial-gradient(circle at 100% 0%,#4a0000 0 75px,transparent 76px);
+
+  filter:
+  blur(1px)
+  drop-shadow(0 0 8px rgba(255,0,0,.4));
+}
+
+/* BLOOD STREAMS */
+
+.stream{
+  position:absolute;
+  top:-200px;
+
+  background:
+  linear-gradient(
+  to bottom,
+  #9b0000 0%,
+  #6d0000 40%,
+  #2a0000 100%
+  );
+
+  border-radius:0 0 50px 50px;
+
+  opacity:.95;
+
+  animation:fall linear infinite;
+
+  filter:
+  blur(.4px)
+  drop-shadow(0 0 6px rgba(255,0,0,.3));
+}
+
+
+.stream::after{
+  content:"";
+  position:absolute;
+  bottom:-16px;
+  left:50%;
+  transform:translateX(-50%);
+
+  width:28px;
+  height:28px;
+
+  background:
+  radial-gradient(circle at 30% 30%,#c20000,#5c0000);
+
+  border-radius:50%;
+}
+
+
+.s1{
+  left:6%;
+  width:16px;
+  height:350px;
+  animation-duration:6s;
+}
+
+.s2{
+  left:15%;
+  width:12px;
+  height:420px;
+  animation-duration:7s;
+  animation-delay:-2s;
+}
+
+.s3{
+  left:24%;
+  width:18px;
+  height:300px;
+  animation-duration:5s;
+  animation-delay:-1s;
+}
+
+.s4{
+  left:35%;
+  width:13px;
+  height:500px;
+  animation-duration:8s;
+  animation-delay:-3s;
+}
+
+.s5{
+  left:48%;
+  width:20px;
+  height:370px;
+  animation-duration:6s;
+  animation-delay:-1s;
+}
+
+.s6{
+  left:60%;
+  width:14px;
+  height:470px;
+  animation-duration:9s;
+  animation-delay:-4s;
+}
+
+.s7{
+  left:72%;
+  width:19px;
+  height:320px;
+  animation-duration:5.5s;
+  animation-delay:-2s;
+}
+
+.s8{
+  left:84%;
+  width:12px;
+  height:450px;
+  animation-duration:7s;
+  animation-delay:-3s;
+}
+
+.s9{
+  left:94%;
+  width:16px;
+  height:340px;
+  animation-duration:6.5s;
+  animation-delay:-1s;
+}
+
+@keyframes fall{
+
+  0%{
+    transform:translateY(-250px);
+  }
+
+  100%{
+    transform:translateY(120vh);
+  }
+
+}
+
+
+.loader{
+  position:fixed;
+  inset:0;
+  background:#000;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+
+  font-size:22px;
+  letter-spacing:5px;
+
+  color:#ff0000;
+
+  text-shadow:
+  0 0 10px red,
+  0 0 30px darkred;
+
+  animation:fadeOut 1s ease forwards;
+  animation-delay:2s;
+}
+
+@keyframes fadeOut{
+  to{
+    opacity:0;
+    visibility:hidden;
+  }
+}
+
+
+canvas{
+  position:fixed;
+  inset:0;
+  z-index:-2;
+}
+
+
+.card{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+
+  width:360px;
+
+  text-align:center;
+
+  padding:40px;
+
+  border-radius:30px;
+
+  background:rgba(20,0,0,0.45);
+
+  backdrop-filter:blur(20px);
+
+  border:1px solid rgba(255,0,0,0.15);
+
+  box-shadow:
+  0 0 25px rgba(255,0,0,0.4),
+  inset 0 0 20px rgba(255,0,0,0.08);
+
+  animation:float 5s ease-in-out infinite;
+
+  transition:.3s;
+
+  overflow:hidden;
+}
+
+/* ROTATING RED BORDER */
+
+.card::before{
+  content:"";
+  position:absolute;
+
+  width:600px;
+  height:600px;
+
+  background:conic-gradient(
+  transparent,
+  #ff0000,
+  transparent 30%
+  );
+
+  animation:rotate 6s linear infinite;
+
+  top:-150%;
+  left:-40%;
+}
+
+.card::after{
+  content:"";
+  position:absolute;
+  inset:2px;
+
+  border-radius:28px;
+
+  background:rgba(5,0,0,0.92);
+
+  z-index:-1;
+}
+
+@keyframes rotate{
+  100%{
+    transform:rotate(360deg);
+  }
+}
+
+@keyframes float{
+
+  0%,100%{
+    transform:translate(-50%,-50%);
+  }
+
+  50%{
+    transform:translate(-50%,-53%);
+  }
+
+}
+
+
+img{
+  width:115px;
+  height:115px;
+
+  border-radius:50%;
+
+  border:3px solid #ff0000;
+
+  box-shadow:
+  0 0 30px red,
+  0 0 60px rgba(255,0,0,.5);
+
+  object-fit:cover;
+
+  transition:.4s;
+}
+
+img:hover{
+  transform:scale(1.08) rotate(3deg);
+}
+
+
+h1{
+  margin-top:12px;
+
+  letter-spacing:4px;
+
+  font-size:32px;
+
+  color:#ff2a2a;
+
+  text-shadow:
+  0 0 8px red,
+  0 0 25px darkred,
+  0 0 50px #300000;
+}
+
+
+.status{
+  font-size:13px;
+  margin-top:6px;
+
+  color:#ff4d4d;
+
+  animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+
+  0%{
+    opacity:1;
+  }
+
+  50%{
+    opacity:.5;
+  }
+
+  100%{
+    opacity:1;
+  }
+
+}
+
+
+.typing{
+  margin-top:14px;
+  min-height:40px;
+  font-size:14px;
+  opacity:.9;
+  color:#ddd;
+}
+
+.typing::after{
+  content:"|";
+  animation:blink .7s infinite;
+}
+
+@keyframes blink{
+  50%{
+    opacity:0;
+  }
+}
+
+
+.clock{
+  margin-top:10px;
+  font-size:13px;
+  color:#ff8080;
+  opacity:.9;
+}
+
+
+.socials{
+  display:flex;
+  justify-content:center;
+  gap:15px;
+  margin-top:18px;
+}
+
+.icon{
+  width:48px;
+  height:48px;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  border-radius:50%;
+
+  background:rgba(255,0,0,.08);
+
+  transition:.3s;
+
+  color:white;
+
+  text-decoration:none;
+
+  font-size:18px;
+}
+
+.icon:hover{
+  transform:translateY(-5px) scale(1.1);
+
+  box-shadow:0 0 20px red;
+}
+
+.discord:hover{
+  background:#4a0000;
+}
+
+.telegram:hover{
+  background:#700000;
+}
+
+.instagram:hover{
+  background:#9a0000;
+}
+
+
+.music{
+  margin-top:18px;
+}
+
+.music button{
+  background:#8b0000;
+  color:white;
+
+  border:none;
+
+  padding:10px 20px;
+
+  border-radius:30px;
+
+  cursor:pointer;
+
+  font-weight:600;
+
+  transition:.3s;
+}
+
+.music button:hover{
+  transform:scale(1.08);
+  background:#b30000;
+}
+
+
+.visits{
+  margin-top:15px;
+  font-size:12px;
+  opacity:.7;
+  color:#ccc;
+}
+
+
+.cursor{
+  width:15px;
+  height:15px;
+
+  border:2px solid red;
+
+  border-radius:50%;
+
+  position:fixed;
+
+  pointer-events:none;
+
+  transform:translate(-50%,-50%);
+
+  z-index:999;
+
+  box-shadow:0 0 15px red;
+}
+
+.cursor2{
+  width:40px;
+  height:40px;
+
+  border:1px solid rgba(255,0,0,.4);
+
+  border-radius:50%;
+
+  position:fixed;
+
+  pointer-events:none;
+
+  transform:translate(-50%,-50%);
+
+  z-index:998;
+
+  transition:.08s;
+}
+
+
+@media(max-width:500px){
+
+  .card{
+    width:92%;
+    padding:30px;
+  }
+
+  h1{
+    font-size:26px;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="blood-container">
+
+  <div class="blood-top"></div>
+
+  <div class="stream s1"></div>
+  <div class="stream s2"></div>
+  <div class="stream s3"></div>
+  <div class="stream s4"></div>
+  <div class="stream s5"></div>
+  <div class="stream s6"></div>
+  <div class="stream s7"></div>
+  <div class="stream s8"></div>
+  <div class="stream s9"></div>
+
+</div>
+
+<div class="loader">KWEL</div>
+
+<canvas id="bg"></canvas>
+
+<div class="cursor"></div>
+<div class="cursor2"></div>
+
+<div class="card" id="card">
+
+  <img src="kwel.png">
+
+  <h1>KWEL</h1>
+
+  <div class="status" id="status">● Loading...</div>
+
+  <div class="typing" id="typing"></div>
+
+  <div class="clock" id="clock"></div>
+
+  <div class="socials">
+
+    <a class="icon discord"
+    href="https://discord.com/users/1473165465399459993">
+    <i class="fab fa-discord"></i>
+    </a>
+
+    <a class="icon telegram"
+    href="https://t.me/kwel999">
+    <i class="fab fa-telegram"></i>
+    </a>
+
+    <a class="icon instagram"
+    href="https://instagram.com/fakeraven_00">
+    <i class="fab fa-instagram"></i>
+    </a>
+
+  </div>
+
+  <div class="music">
+
+    <button onclick="toggleMusic()">
+      <i class="fa-solid fa-play"></i> Music
+    </button>
+
+  </div>
+
+  <div class="visits">
+    Visitors: <span id="visits">0</span>
+  </div>
+
+</div>
+
+<audio id="audio" loop>
+  <source src="kwel.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+
+const DISCORD_ID = "1473165465399459993";
+
+async function loadStatus(){
+
+  try{
+
+    let r=await fetch(
+    `https://api.lanyard.rest/v1/users/${DISCORD_ID}`
+    );
+
+    let d=await r.json();
+
+    let s=d.data.discord_status;
+
+    let text="● Offline ⚪";
+
+    if(s==="online") text="● Online 🟢";
+    if(s==="idle") text="● Idle 🟡";
+    if(s==="dnd") text="● DND 🔴";
+
+    document.getElementById("status").innerText=text;
+
+  }catch{
+
+    document.getElementById("status").innerText=
+    "● Offline";
+
+  }
+
+}
+
+async function visits(){
+
+  try{
+
+    await fetch(
+    "https://api.countapi.xyz/hit/kwel-site/main"
+    );
+
+    let r=await fetch(
+    "https://api.countapi.xyz/get/kwel-site/main"
+    );
+
+    let d=await r.json();
+
+    document.getElementById("visits").innerText=
+    d.value;
+
+  }catch{
+
+    document.getElementById("visits").innerText=
+    "N/A";
+
+  }
+
+}
+
+let texts=[
+  "Creative Developer 🩸",
+  "Building nightmares ☠",
+  "Always evolving in darkness 🔥",
+  "Elite Horror Experience ⚡"
+];
+
+let i=0;
+let j=0;
+let del=false;
+
+function type(){
+
+  let t=texts[i];
+
+  document.getElementById("typing").innerText=
+  t.substring(0,j);
+
+  if(!del){
+
+    j++;
+
+    if(j>t.length){
+
+      del=true;
+
+      setTimeout(type,1200);
+
+      return;
+
+    }
+
+  }else{
+
+    j--;
+
+    if(j<0){
+
+      del=false;
+
+      i=(i+1)%texts.length;
+
+    }
+
+  }
+
+  setTimeout(type,del?40:70);
+
+}
+
+function clock(){
+
+  let d=new Date();
+
+  document.getElementById("clock").innerText=
+  d.toLocaleTimeString();
+
+}
+
+setInterval(clock,1000);
+
+let audio=document.getElementById("audio");
+
+function toggleMusic(){
+
+  if(audio.paused){
+
+    audio.play();
+
+  }else{
+
+    audio.pause();
+
+  }
+
+}
+
+let c=document.querySelector(".cursor");
+let c2=document.querySelector(".cursor2");
+
+document.addEventListener("mousemove",e=>{
+
+  c.style.left=e.clientX+"px";
+  c.style.top=e.clientY+"px";
+
+  c2.style.left=e.clientX+"px";
+  c2.style.top=e.clientY+"px";
+
+});
+
+const card=document.getElementById("card");
+
+document.addEventListener("mousemove",(e)=>{
+
+  let x=(window.innerWidth/2-e.pageX)/25;
+  let y=(window.innerHeight/2-e.pageY)/25;
+
+  card.style.transform=
+  `translate(-50%,-50%) rotateY(${x}deg) rotateX(${-y}deg)`;
+
+});
+
+let canvas=document.getElementById("bg");
+let ctx=canvas.getContext("2d");
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let dots=[];
+
+for(let i=0;i<100;i++){
+
+  dots.push({
+
+    x:Math.random()*canvas.width,
+    y:Math.random()*canvas.height,
+    size:Math.random()*3,
+    speed:Math.random()*1+0.2
+
+  });
+
+}
+
+function draw(){
+
+  ctx.clearRect(
+  0,
+  0,
+  canvas.width,
+  canvas.height
+  );
+
+  dots.forEach(d=>{
+
+    ctx.beginPath();
+
+    ctx.arc(
+    d.x,
+    d.y,
+    d.size,
+    0,
+    Math.PI*2
+    );
+
+    ctx.fillStyle="#8b0000";
+
+    ctx.fill();
+
+    d.y+=d.speed;
+
+    if(d.y>canvas.height){
+
+      d.y=0;
+
+      d.x=Math.random()*canvas.width;
+
+    }
+
+  });
+
+  requestAnimationFrame(draw);
+
+}
+
+loadStatus();
+visits();
+type();
+draw();
+clock();
+
+setInterval(loadStatus,15000);
+
+window.addEventListener("resize",()=>{
+
+  canvas.width=window.innerWidth;
+  canvas.height=window.innerHeight;
+
+});
+
+</script>
+
+</body>
+</html>
