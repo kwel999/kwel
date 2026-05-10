@@ -3,10 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <title>KWEL | Personal Profile</title>
+
 <link rel="icon" type="image/png" sizes="32x32" href="kwel.png">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
@@ -26,11 +29,9 @@ body{
   radial-gradient(circle at top,#3a0000 0%,#170000 25%,#050505 70%,#000 100%);
 
   background-size:400% 400%;
-
   animation:bg 12s ease infinite;
 
   color:white;
-
   cursor:none;
 }
 
@@ -436,7 +437,6 @@ h1{
 
 .icon:hover{
   transform:translateY(-5px) scale(1.1);
-
   box-shadow:0 0 20px red;
 }
 
@@ -617,6 +617,10 @@ h1{
 
 const DISCORD_ID = "1473165465399459993";
 
+
+const BIN_ID = "69ffd2b7c0954111d8fed951";
+const API_KEY = "$2a$10$gx9Zzmhcdwt/v5NXz.KOs.Hf1rR/F5Q.FI/czMR4oDdhKhp/kLTGS";
+
 async function loadStatus(){
 
   try{
@@ -646,44 +650,58 @@ async function loadStatus(){
 
 }
 
-async function visits(){
 
-  const namespace = "kwel-profile";
-  const key = "visits";
+async function visits(){
 
   try{
 
-    let hasVisited = localStorage.getItem("kwel_visited");
+    let response = await fetch(
+      `https://api.jsonbin.io/v3/b/${BIN_ID}/latest`,
+      {
+        headers:{
+          "X-Master-Key": API_KEY
+        }
+      }
+    );
 
-    if(!hasVisited){
+    let data = await response.json();
 
-      let hit = await fetch(
-      `https://api.countapi.xyz/hit/${namespace}/${key}`
+    let count = data.record.visits || 0;
+
+    if(!localStorage.getItem("kwel_visited")){
+
+      count++;
+
+      await fetch(
+        `https://api.jsonbin.io/v3/b/${BIN_ID}`,
+        {
+          method:"PUT",
+
+          headers:{
+            "Content-Type":"application/json",
+            "X-Master-Key": API_KEY
+          },
+
+          body:JSON.stringify({
+            visits:count
+          })
+
+        }
       );
 
-      let hitData = await hit.json();
-
-      document.getElementById("visits").innerText =
-      hitData.value;
-
-      localStorage.setItem("kwel_visited","true");
-
-    }else{
-
-      let get = await fetch(
-      `https://api.countapi.xyz/get/${namespace}/${key}`
+      localStorage.setItem(
+        "kwel_visited",
+        "true"
       );
-
-      let getData = await get.json();
-
-      document.getElementById("visits").innerText =
-      getData.value;
 
     }
 
-  }catch(e){
+    document.getElementById("visits").innerText =
+    count;
 
-    console.log(e);
+  }catch(err){
+
+    console.log(err);
 
     document.getElementById("visits").innerText =
     "N/A";
