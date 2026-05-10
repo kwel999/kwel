@@ -53,7 +53,6 @@ body{
 
 }
 
-
 .blood-container{
   position:fixed;
   inset:0;
@@ -61,7 +60,6 @@ body{
   z-index:2;
   overflow:hidden;
 }
-
 
 .blood-top{
   position:absolute;
@@ -83,8 +81,6 @@ body{
   blur(1px)
   drop-shadow(0 0 8px rgba(255,0,0,.4));
 }
-
-/* BLOOD STREAMS */
 
 .stream{
   position:absolute;
@@ -109,7 +105,6 @@ body{
   drop-shadow(0 0 6px rgba(255,0,0,.3));
 }
 
-
 .stream::after{
   content:"";
   position:absolute;
@@ -125,7 +120,6 @@ body{
 
   border-radius:50%;
 }
-
 
 .s1{
   left:6%;
@@ -210,7 +204,6 @@ body{
 
 }
 
-
 .loader{
   position:fixed;
   inset:0;
@@ -240,13 +233,11 @@ body{
   }
 }
 
-
 canvas{
   position:fixed;
   inset:0;
   z-index:-2;
 }
-
 
 .card{
   position:absolute;
@@ -278,8 +269,6 @@ canvas{
 
   overflow:hidden;
 }
-
-/* ROTATING RED BORDER */
 
 .card::before{
   content:"";
@@ -330,7 +319,6 @@ canvas{
 
 }
 
-
 img{
   width:115px;
   height:115px;
@@ -352,7 +340,6 @@ img:hover{
   transform:scale(1.08) rotate(3deg);
 }
 
-
 h1{
   margin-top:12px;
 
@@ -367,7 +354,6 @@ h1{
   0 0 25px darkred,
   0 0 50px #300000;
 }
-
 
 .status{
   font-size:13px;
@@ -394,7 +380,6 @@ h1{
 
 }
 
-
 .typing{
   margin-top:14px;
   min-height:40px;
@@ -414,14 +399,12 @@ h1{
   }
 }
 
-
 .clock{
   margin-top:10px;
   font-size:13px;
   color:#ff8080;
   opacity:.9;
 }
-
 
 .socials{
   display:flex;
@@ -469,7 +452,6 @@ h1{
   background:#9a0000;
 }
 
-
 .music{
   margin-top:18px;
 }
@@ -496,14 +478,12 @@ h1{
   background:#b30000;
 }
 
-
 .visits{
   margin-top:15px;
   font-size:12px;
   opacity:.7;
   color:#ccc;
 }
-
 
 .cursor{
   width:15px;
@@ -542,7 +522,6 @@ h1{
 
   transition:.08s;
 }
-
 
 @media(max-width:500px){
 
@@ -636,7 +615,6 @@ h1{
 
 <script>
 
-
 const DISCORD_ID = "1473165465399459993";
 
 async function loadStatus(){
@@ -670,24 +648,44 @@ async function loadStatus(){
 
 async function visits(){
 
+  const namespace = "kwel-profile";
+  const key = "visits";
+
   try{
 
-    await fetch(
-    "https://api.countapi.xyz/hit/kwel-site/main"
-    );
+    let hasVisited = localStorage.getItem("kwel_visited");
 
-    let r=await fetch(
-    "https://api.countapi.xyz/get/kwel-site/main"
-    );
+    if(!hasVisited){
 
-    let d=await r.json();
+      let hit = await fetch(
+      `https://api.countapi.xyz/hit/${namespace}/${key}`
+      );
 
-    document.getElementById("visits").innerText=
-    d.value;
+      let hitData = await hit.json();
 
-  }catch{
+      document.getElementById("visits").innerText =
+      hitData.value;
 
-    document.getElementById("visits").innerText=
+      localStorage.setItem("kwel_visited","true");
+
+    }else{
+
+      let get = await fetch(
+      `https://api.countapi.xyz/get/${namespace}/${key}`
+      );
+
+      let getData = await get.json();
+
+      document.getElementById("visits").innerText =
+      getData.value;
+
+    }
+
+  }catch(e){
+
+    console.log(e);
+
+    document.getElementById("visits").innerText =
     "N/A";
 
   }
