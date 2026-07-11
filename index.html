@@ -862,12 +862,10 @@
 
   <script>
     (function() {
-      // Configuration
       const DISCORD_ID = "1473165465399459993";
       const BIN_ID = "69ffd2b7c0954111d8fed951";
       const API_KEY = "$2a$10$gx9Zzmhcdwt/v5NXz.KOs.Hf1rR/F5Q.FI/czMR4oDdhKhp/kLTGS";
 
-      // Generate realistic waterdrops
       function createWaterdrops() {
         const container = document.getElementById('waterdropSystem');
         const dropletCount = 45;
@@ -989,12 +987,9 @@
         setTimeout(typeEffect, typingSpeed);
       }
 
-      // Time functions - Developer (Bangladesh UTC+6) and Visitor
       function updateTimes() {
         const now = new Date();
         
-        // Developer's time - Bangladesh (UTC+6)
-        const developerTime = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Dhaka' }));
         const devOptions = {
           weekday: 'long',
           year: 'numeric',
@@ -1006,10 +1001,9 @@
           hour12: true,
           timeZone: 'Asia/Dhaka'
         };
-        const devTimeString = developerTime.toLocaleString('en-US', devOptions);
+        const devTimeString = now.toLocaleString('en-US', devOptions);
         document.getElementById('developerTime').textContent = devTimeString + ' (BST)';
         
-        // Visitor's local time
         const visitorOptions = {
           weekday: 'long',
           year: 'numeric',
@@ -1110,7 +1104,6 @@
       window.setSpeed = function(speed) {
         audio.playbackRate = speed;
         
-        // Update active button
         document.querySelectorAll('.speed-btn').forEach(btn => {
           btn.classList.remove('active');
         });
@@ -1141,7 +1134,6 @@
       }
       animateCursor();
 
-      // Canvas particles
       const canvas = document.getElementById('bg');
       const ctx = canvas.getContext('2d');
       
