@@ -33,7 +33,7 @@ jobs:
       
       - name: Inject Discord Bot Token
         run: |
-          sed -i 's/const BOT_TOKEN = "YOUR_BOT_TOKEN_HERE";/const BOT_TOKEN = "${{ secrets.BOT_TOKEN }}";/g' index.html
+          sed -i 's/const BOT_TOKEN = "YOUR_BOT_TOKEN_HERE";/const BOT_TOKEN = "${{ secrets.DISCORD_BOT_TOKEN }}";/g' index.html
       
       - name: Setup Pages
         uses: actions/configure-pages@v5
