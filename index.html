@@ -915,173 +915,6 @@
       text-align: center;
     }
 
-    .tool-search {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 20px;
-      flex-direction: column;
-    }
-
-    .tool-input {
-      width: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      border: 1px solid rgba(255, 50, 50, 0.3);
-      color: #ffaaaa;
-      padding: 12px 15px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-family: 'Poppins', sans-serif;
-      outline: none;
-      transition: all 0.3s;
-    }
-
-    .tool-input:focus {
-      border-color: #ff0000;
-      box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
-    }
-
-    .tool-input::placeholder {
-      color: #885555;
-    }
-
-    .tool-search-btn {
-      background: linear-gradient(135deg, #8b0000, #4a0000);
-      border: 1px solid rgba(255, 50, 50, 0.3);
-      color: white;
-      padding: 12px 20px;
-      border-radius: 20px;
-      cursor: pointer;
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: 1px;
-      transition: all 0.3s;
-      font-family: 'Poppins', sans-serif;
-      width: 100%;
-    }
-
-    .tool-search-btn:hover {
-      background: linear-gradient(135deg, #a00000, #5a0000);
-      box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
-    }
-
-    .tool-search-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    .discord-result {
-      background: rgba(20, 0, 0, 0.3);
-      border-radius: 15px;
-      padding: 20px;
-      margin-top: 20px;
-      border: 1px solid rgba(255, 50, 50, 0.2);
-      display: none;
-      text-align: left;
-    }
-
-    .discord-result.show {
-      display: block;
-      animation: fadeInUp 0.4s ease;
-    }
-
-    .discord-avatar-container {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .discord-avatar {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      border: 3px solid rgba(255, 60, 60, 0.6);
-      box-shadow: 0 0 30px rgba(255, 0, 0, 0.4);
-    }
-
-    .discord-info-item {
-      margin: 10px 0;
-      padding: 10px;
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .discord-info-label {
-      color: #ff6666;
-      font-size: 12px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .discord-info-value {
-      color: #ffaaaa;
-      font-size: 13px;
-      font-weight: 500;
-      word-break: break-all;
-    }
-
-    .avatar-link-box {
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 10px;
-      padding: 10px;
-      margin-top: 10px;
-      word-break: break-all;
-    }
-
-    .avatar-link-text {
-      color: #ffaaaa;
-      font-size: 11px;
-      font-family: monospace;
-      background: rgba(0, 0, 0, 0.5);
-      padding: 8px;
-      border-radius: 8px;
-      display: block;
-      margin-bottom: 8px;
-    }
-
-    .loading-spinner {
-      display: none;
-      text-align: center;
-      padding: 20px;
-    }
-
-    .loading-spinner.show {
-      display: block;
-    }
-
-    .spinner {
-      width: 40px;
-      height: 40px;
-      border: 3px solid rgba(255, 0, 0, 0.2);
-      border-top: 3px solid #ff0000;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin: 0 auto;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .error-message {
-      color: #ff4444;
-      text-align: center;
-      padding: 10px;
-      background: rgba(255, 0, 0, 0.1);
-      border-radius: 10px;
-      margin-top: 10px;
-      display: none;
-    }
-
-    .error-message.show {
-      display: block;
-    }
-
     .cursor {
       width: 20px;
       height: 20px;
@@ -1146,11 +979,6 @@
       .weather-search {
         flex-direction: column;
       }
-
-      .discord-info-item {
-        flex-direction: column;
-        align-items: flex-start;
-      }
     }
   </style>
 </head>
@@ -1178,7 +1006,6 @@
       <button class="nav-pill active" data-section="about">About</button>
       <button class="nav-pill" data-section="skills">Skills</button>
       <button class="nav-pill" data-section="gaming">Gaming</button>
-      <button class="nav-pill" data-section="tools">Tools</button>
       <button class="nav-pill" data-section="contact">Contact</button>
     </div>
 
@@ -1381,58 +1208,6 @@
       </div>
     </div>
 
-    <div class="content-section" id="tools">
-      <h2>Discord Tools</h2>
-      <div class="divider"></div>
-      <p style="text-align: center; font-size: 15px;">Fetch Discord user profile information</p>
-      
-      <div class="tool-search">
-        <input type="text" class="tool-input" id="discordUserId" placeholder="Enter Discord User ID..." />
-        <button class="tool-search-btn" onclick="fetchDiscordUser()" id="fetchBtn">
-          <i class="fa-brands fa-discord"></i> Fetch Profile
-        </button>
-      </div>
-
-      <div class="loading-spinner" id="loadingSpinner">
-        <div class="spinner"></div>
-        <p style="margin-top: 10px; color: #cc9999; font-size: 12px;">Fetching user data...</p>
-      </div>
-
-      <div class="error-message" id="errorMessage"></div>
-
-      <div class="discord-result" id="discordResult">
-        <div class="discord-avatar-container">
-          <img src="" alt="Discord Avatar" class="discord-avatar" id="discordAvatar">
-        </div>
-        
-        <div class="discord-info-item">
-          <span class="discord-info-label">Username</span>
-          <span class="discord-info-value" id="discordUsername">-</span>
-        </div>
-        
-        <div class="discord-info-item">
-          <span class="discord-info-label">Display Name</span>
-          <span class="discord-info-value" id="discordDisplayName">-</span>
-        </div>
-        
-        <div class="discord-info-item">
-          <span class="discord-info-label">User ID</span>
-          <span class="discord-info-value" id="discordUserIdDisplay">-</span>
-        </div>
-        
-        <div class="discord-info-item">
-          <span class="discord-info-label">Created</span>
-          <span class="discord-info-value" id="discordCreated">-</span>
-        </div>
-
-        <div class="avatar-link-box">
-          <span class="discord-info-label" style="display: block; margin-bottom: 8px;">Avatar URL</span>
-          <span class="avatar-link-text" id="avatarUrlText">-</span>
-          <button class="copy-btn" onclick="copyText(document.getElementById('avatarUrlText').textContent)" style="margin-left: 0;">Copy URL</button>
-        </div>
-      </div>
-    </div>
-
     <div class="content-section" id="contact">
       <h2>Connect With Me</h2>
       <div class="divider"></div>
@@ -1469,7 +1244,6 @@
       const DISCORD_ID = "1473165465399459993";
       const BIN_ID = "69ffd2b7c0954111d8fed951";
       const API_KEY = "$2a$10$gx9Zzmhcdwt/v5NXz.KOs.Hf1rR/F5Q.FI/czMR4oDdhKhp/kLTGS";
-      const BOT_TOKEN = "YOUR_BOT_TOKEN_HERE";
 
       function createWaterdrops() {
         const container = document.getElementById('waterdropSystem');
@@ -1588,96 +1362,6 @@
           searchWeather();
         }
       });
-
-      document.getElementById('discordUserId').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-          fetchDiscordUser();
-        }
-      });
-
-      window.fetchDiscordUser = async function() {
-  const userId = document.getElementById('discordUserId').value.trim();
-  if (!userId) {
-    showError('Please enter a Discord User ID');
-    return;
-  }
-
-  const fetchBtn = document.getElementById('fetchBtn');
-  const loadingSpinner = document.getElementById('loadingSpinner');
-  const errorMessage = document.getElementById('errorMessage');
-  const discordResult = document.getElementById('discordResult');
-
-  fetchBtn.disabled = true;
-  loadingSpinner.classList.add('show');
-  errorMessage.classList.remove('show');
-  discordResult.classList.remove('show');
-
-  const corsProxies = [
-    `https://api.allorigins.win/raw?url=${encodeURIComponent(`https://discord.com/api/v10/users/${userId}`)}`,
-    `https://corsproxy.io/?${encodeURIComponent(`https://discord.com/api/v10/users/${userId}`)}`,
-    `https://cors-anywhere.herokuapp.com/${encodeURIComponent(`https://discord.com/api/v10/users/${userId}`)}`
-  ];
-
-  let lastError = null;
-
-  for (const proxyUrl of corsProxies) {
-    try {
-      const response = await fetch(proxyUrl, {
-        headers: {
-          'Authorization': `Bot ${BOT_TOKEN}`,
-          'Content-Type': 'application/json'
-        }
-      });
-
-      if (response.ok) {
-        const userData = await response.json();
-        displayDiscordUser(userData);
-        fetchBtn.disabled = false;
-        loadingSpinner.classList.remove('show');
-        return;
-      }
-    } catch (error) {
-      lastError = error;
-      continue;
-    }
-  }
-
-  showError('All proxies failed. The bot token may be invalid or expired. Please check your configuration.');
-  fetchBtn.disabled = false;
-  loadingSpinner.classList.remove('show');
-};
-
-      function displayDiscordUser(userData) {
-        const discordResult = document.getElementById('discordResult');
-        
-        const avatarUrl = userData.avatar 
-          ? `https://cdn.discordapp.com/avatars/${userData.id}/${userData.avatar}.png?size=512`
-          : `https://cdn.discordapp.com/embed/avatars/${userData.discriminator === '0' ? (userData.id >> 22) % 6 : userData.discriminator % 5}.png`;
-
-        document.getElementById('discordAvatar').src = avatarUrl;
-        document.getElementById('discordUsername').textContent = userData.username;
-        document.getElementById('discordDisplayName').textContent = userData.global_name || userData.username;
-        document.getElementById('discordUserIdDisplay').textContent = userData.id;
-        
-        const createdDate = new Date((userData.id / 4194304) + 1420070400000);
-        document.getElementById('discordCreated').textContent = createdDate.toLocaleDateString('en-US', {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric'
-        });
-        
-        document.getElementById('avatarUrlText').textContent = avatarUrl;
-        discordResult.classList.add('show');
-      }
-
-      function showError(message) {
-        const errorMessage = document.getElementById('errorMessage');
-        errorMessage.textContent = message;
-        errorMessage.classList.add('show');
-        setTimeout(() => {
-          errorMessage.classList.remove('show');
-        }, 5000);
-      }
 
       async function updateVisits() {
         try {
