@@ -1,0 +1,58 @@
+import { getStore } from "@netlify/blobs";
+
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "Content-Type",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
+  "Content-Type": "application/json"
+};
+
+export default async (request) => {
+  if (request.method === "OPTIONS") {
+    return new Response(null, { status: 204, headers: corsHeaders });
+  }
+  if (request.method !== "POST") {
+    return new Response(JSON.stringify({ error: "Method not allowed" }), {
+      status: 405, headers: corsHeaders
+    });
+  }
+
+  try {
+    const body = await request.json();
+    const visitorId = String(body.visitorId || "");
+    // Reject malformed IDs; the ID is an anonymous browser identifier, not personal data.
+    if (!/^[a-zA-Z0-9-]{12,100}$/.test(visitorId)) {
+      return new Response(JSON.stringify({ error: "Invalid visitor ID" }), {
+        status: 400, headers: corsHeaders
+      });
+    }
+
+    const store = getStore("kwel-visitors");
+    const key = `visitor-${visitorId}`;
+    const existing = await store.get(key, { type: "json" });
+
+    if (!existing) {
+      await store.setJSON(key, {
+        firstSeen: new Date().toISOString(),
+        lastSeen: new Date().toISOString()
+      });
+    } else {
+      existing.lastSeen = new Date().toISOString();
+      await store.setJSON(key, existing);
+    }
+
+    // Count unique visitor records in the shared Netlify Blobs store.
+    const listing = await store.list({ prefix: "visitor-" });
+    return new Response(JSON.stringify({
+      total: listing.blobs.length,
+      returning: Boolean(existing)
+    }), { status: 200, headers: corsHeaders });
+  } catch (error) {
+    console.error("KWEL visitor function error:", error);
+    return new Response(JSON.stringify({ error: "Visitor counter unavailable" }), {
+      status: 500, headers: corsHeaders
+    });
+  }
+};
+
+export const config = { path: "/.netlify/functions/visitors" };
